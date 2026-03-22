@@ -1,0 +1,1388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Night Out, Sorted — QBN</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: #0a0a0a;
+    color: #e8e8e8;
+    min-height: 100vh;
+    line-height: 1.6;
+  }
+
+  /* Header */
+  header {
+    text-align: center;
+    padding: 3.5rem 1.5rem 2rem;
+    background: linear-gradient(135deg, #1a1208 0%, #0d0d0d 40%, #0d100d 70%, #0a0a0a 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 30% 50%, rgba(212,168,75,.06) 0%, transparent 50%),
+                radial-gradient(circle at 70% 50%, rgba(212,168,75,.04) 0%, transparent 50%);
+    animation: shimmer 8s ease-in-out infinite alternate;
+  }
+  @keyframes shimmer {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(2%, 1%); }
+  }
+  header h1 {
+    font-size: 2.6rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #d4a84b 0%, #f0d68a 50%, #d4a84b 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: goldShine 4s ease-in-out infinite alternate;
+    letter-spacing: 1px;
+    position: relative;
+  }
+  @keyframes goldShine {
+    0% { background-position: 0% center; }
+    100% { background-position: 200% center; }
+  }
+  header .subtitle {
+    font-size: 1.15rem;
+    font-weight: 300;
+    color: #b0a08a;
+    margin-top: .4rem;
+    position: relative;
+  }
+  header .address {
+    font-size: .85rem;
+    color: #6b6053;
+    margin-top: .6rem;
+  }
+
+  /* Category Sections */
+  .category {
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+  .category-header {
+    text-align: center;
+    padding: 2.5rem 0 1.2rem;
+  }
+  .category-header h2 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #d4a84b;
+  }
+  .category-header p {
+    font-size: .9rem;
+    color: #6b6053;
+    margin-top: .3rem;
+  }
+
+  /* Link hint */
+  .link-hint {
+    font-size: .95rem;
+    color: #d4a84b;
+    margin-top: .4rem;
+    font-weight: 500;
+  }
+  .dashed-example {
+    color: #f0e6d3;
+    border-bottom: 2px dashed #d4a84b;
+    font-weight: 700;
+    padding-bottom: 1px;
+  }
+
+  /* Vibe Sections */
+  .vibe-section {
+    margin-bottom: 2rem;
+  }
+  .vibe-label {
+    font-size: .8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #d4a84b;
+    margin-bottom: .8rem;
+    padding-left: .2rem;
+  }
+
+  /* Venue Cards Grid */
+  .venue-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+
+  .venue-card {
+    background: linear-gradient(145deg, #1a1714 0%, #141210 100%);
+    border: 1px solid #2a2320;
+    border-radius: 14px;
+    padding: 1.2rem 1.3rem;
+    transition: transform .3s, border-color .3s, box-shadow .3s;
+    position: relative;
+  }
+  .venue-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 14px;
+    padding: 1px;
+    background: linear-gradient(135deg, transparent 0%, rgba(212,168,75,.2) 50%, transparent 100%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity .3s;
+  }
+  .venue-card:hover {
+    transform: translateY(-4px);
+    border-color: #d4a84b44;
+    box-shadow: 0 8px 32px rgba(212,168,75,.12), 0 0 20px rgba(212,168,75,.05);
+  }
+  .venue-card:hover::before {
+    opacity: 1;
+  }
+
+  .venue-name {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #f0e6d3;
+    margin-bottom: .25rem;
+  }
+  .venue-name a {
+    color: #f0e6d3;
+    text-decoration: none;
+    border-bottom: 1px dashed #d4a84b88;
+    transition: color .2s, border-color .2s;
+  }
+  .venue-name a:hover {
+    color: #d4a84b;
+    border-bottom-color: #d4a84b;
+  }
+  .venue-location {
+    font-size: .82rem;
+    color: #9a9088;
+  }
+  .venue-desc {
+    font-size: .83rem;
+    color: #b8a992;
+    font-style: italic;
+    margin-top: .35rem;
+  }
+
+  /* Suggestions */
+  .suggestions {
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 0 1.5rem 2rem;
+  }
+  .suggestions-header {
+    text-align: center;
+    padding: 2.5rem 0 1.2rem;
+  }
+  .suggestions-header h2 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #d4a84b;
+  }
+  .suggestions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.2rem;
+  }
+  .suggestion-card {
+    background: linear-gradient(135deg, #1e1a14 0%, #181513 100%);
+    border: 1px solid #d4a84b44;
+    border-radius: 14px;
+    padding: 1.5rem 1.6rem;
+    transition: transform .25s, box-shadow .25s;
+  }
+  .suggestion-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(212,168,75,.12);
+  }
+  .suggestion-label {
+    font-size: .7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #d4a84b;
+    margin-bottom: .5rem;
+  }
+  .suggestion-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: .6rem;
+  }
+  .suggestion-step {
+    font-size: .85rem;
+    color: #b8a992;
+    padding-left: 1rem;
+    position: relative;
+    margin-bottom: .3rem;
+  }
+  .suggestion-step::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: #d4a84b;
+  }
+
+  /* Tips */
+  .tips {
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 1rem 1.5rem 3rem;
+  }
+  .tips-box {
+    background: #14120f;
+    border: 1px solid #2a2320;
+    border-radius: 14px;
+    padding: 1.8rem 2rem;
+  }
+  .tips-box h2 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #d4a84b;
+    margin-bottom: .8rem;
+  }
+  .tips-box ul {
+    list-style: none;
+    display: grid;
+    gap: .55rem;
+  }
+  .tips-box li {
+    font-size: .88rem;
+    color: #b0a08a;
+    padding-left: 1.2rem;
+    position: relative;
+  }
+  .tips-box li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: #d4a84b;
+  }
+
+  /* Popup */
+  .popup-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    backdrop-filter: blur(4px);
+    animation: fadeIn .3s ease;
+  }
+  .popup-overlay.hidden { display: none; }
+  .popup-box {
+    background: #1e1b17;
+    border: 1px solid #d4a84b55;
+    border-radius: 14px;
+    padding: 2rem 2.2rem;
+    max-width: 380px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,.5);
+    animation: popIn .3s ease;
+  }
+  .popup-box p {
+    font-size: .95rem;
+    color: #e0d6c8;
+    line-height: 1.6;
+    margin-bottom: 1.4rem;
+  }
+  .popup-box .highlight {
+    color: #d4a84b;
+    font-weight: 600;
+    border-bottom: 1px dashed #d4a84b;
+  }
+  .popup-btn {
+    background: #d4a84b;
+    color: #0d0d0d;
+    border: none;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: .9rem;
+    padding: .6rem 1.8rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background .2s;
+  }
+  .popup-btn:hover { background: #e6be6a; }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes popIn { from { opacity: 0; transform: scale(.9); } to { opacity: 1; transform: scale(1); } }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 2rem 1.5rem 2.5rem;
+    color: #4a4440;
+    font-size: .78rem;
+    border-top: 1px solid #d4a84b15;
+    background: linear-gradient(180deg, #0a0a0a 0%, #0d0b08 100%);
+  }
+
+  /* Vote Buttons */
+  .vote-row {
+    display: flex;
+    gap: .5rem;
+    margin-top: .6rem;
+  }
+  .vote-btn {
+    background: none;
+    border: 1px solid #2a2320;
+    border-radius: 8px;
+    padding: .3rem .65rem;
+    cursor: pointer;
+    font-size: .95rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    gap: .3rem;
+    transition: all .2s;
+    color: #6b6053;
+    font-family: 'Poppins', sans-serif;
+  }
+  .vote-btn:hover {
+    border-color: #d4a84b55;
+    background: #d4a84b10;
+  }
+  .vote-btn.active-like {
+    border-color: #4caf50;
+    background: linear-gradient(135deg, #4caf5020 0%, #4caf5010 100%);
+    color: #4caf50;
+    box-shadow: 0 0 12px rgba(76,175,80,.15);
+  }
+  .vote-btn.active-maybe {
+    border-color: #d4a84b;
+    background: linear-gradient(135deg, #d4a84b20 0%, #d4a84b10 100%);
+    color: #d4a84b;
+    box-shadow: 0 0 12px rgba(212,168,75,.15);
+  }
+  .vote-btn.active-dislike {
+    border-color: #ef5350;
+    background: linear-gradient(135deg, #ef535020 0%, #ef535010 100%);
+    color: #ef5350;
+    box-shadow: 0 0 12px rgba(239,83,80,.15);
+  }
+  .vote-btn .vote-count {
+    font-size: .75rem;
+    min-width: .8rem;
+    text-align: center;
+  }
+  /* +1 animation */
+  .vote-btn .plus-one {
+    position: absolute;
+    top: -1.2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: .75rem;
+    font-weight: 700;
+    pointer-events: none;
+    animation: floatUp .7s ease forwards;
+  }
+  .vote-btn { position: relative; overflow: visible; }
+  @keyframes floatUp {
+    0%   { opacity: 1; transform: translateX(-50%) translateY(0); }
+    100% { opacity: 0; transform: translateX(-50%) translateY(-1rem); }
+  }
+
+  /* Name prompt modal */
+  .name-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 200;
+    backdrop-filter: blur(6px);
+    animation: fadeIn .3s ease;
+  }
+  .name-modal-overlay.hidden { display: none; }
+  .name-modal {
+    background: linear-gradient(145deg, #211e18 0%, #181513 100%);
+    border: 1px solid #d4a84b44;
+    border-radius: 18px;
+    padding: 2.5rem 2.2rem;
+    max-width: 380px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,.6), 0 0 40px rgba(212,168,75,.06);
+    animation: popIn .4s cubic-bezier(.34,1.56,.64,1);
+  }
+  .name-modal h2 {
+    background: linear-gradient(135deg, #d4a84b 0%, #f0d68a 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 1.4rem;
+    margin-bottom: .6rem;
+  }
+  .name-modal p {
+    color: #b0a08a;
+    font-size: .9rem;
+    margin-bottom: 1.2rem;
+  }
+  .name-modal input {
+    width: 100%;
+    padding: .6rem 1rem;
+    border: 1px solid #2a2320;
+    border-radius: 8px;
+    background: #14120f;
+    color: #f0e6d3;
+    font-family: 'Poppins', sans-serif;
+    font-size: .95rem;
+    outline: none;
+    margin-bottom: 1rem;
+    transition: border-color .2s;
+  }
+  .name-modal input:focus {
+    border-color: #d4a84b;
+  }
+  .name-modal button {
+    background: linear-gradient(135deg, #d4a84b 0%, #c49a3f 100%);
+    color: #0d0d0d;
+    border: none;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: .95rem;
+    padding: .6rem 1.8rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background .2s;
+  }
+  .name-modal button:hover { background: linear-gradient(135deg, #e6be6a 0%, #d4a84b 100%); box-shadow: 0 4px 16px rgba(212,168,75,.3); }
+
+  /* Viewing-as label */
+  .viewing-as {
+    font-size: .8rem;
+    color: #6b6053;
+    margin-top: .5rem;
+  }
+
+  /* Admin panel */
+  .admin-panel {
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 1.5rem;
+  }
+  .admin-panel h2 {
+    text-align: center;
+    color: #d4a84b;
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+  }
+  .admin-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+  .admin-card {
+    background: #181513;
+    border: 1px solid #2a2320;
+    border-radius: 12px;
+    padding: 1rem 1.2rem;
+  }
+  .admin-card .admin-venue-name {
+    font-weight: 600;
+    color: #f0e6d3;
+    margin-bottom: .5rem;
+  }
+  .admin-card .admin-votes {
+    font-size: .85rem;
+    color: #b0a08a;
+  }
+  .admin-card .admin-votes .like-names {
+    color: #4caf50;
+  }
+  .admin-card .admin-votes .maybe-names {
+    color: #d4a84b;
+  }
+  .admin-card .admin-votes .dislike-names {
+    color: #ef5350;
+  }
+
+  /* Send Report */
+  .send-report-section {
+    text-align: center;
+    padding: 2rem 1.5rem 1rem;
+  }
+  .send-report-btn {
+    background: #d4a84b;
+    color: #0d0d0d;
+    border: none;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: .8rem 2rem;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background .2s, transform .2s;
+  }
+  .send-report-btn:hover { background: #e6be6a; transform: translateY(-2px); }
+  .send-report-btn:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+  .report-status {
+    margin-top: .6rem;
+    font-size: .85rem;
+    color: #b0a08a;
+  }
+
+  /* Tabs */
+  .tab-hint {
+    text-align: center;
+    color: #d4a84b;
+    font-size: 1.3rem;
+    font-weight: 600;
+    padding: 2rem 0 1rem;
+  }
+  .tab-bar {
+    display: flex;
+    justify-content: center;
+    gap: .5rem;
+    padding: 0 1.5rem 1.5rem;
+    max-width: 1160px;
+    margin: 0 auto;
+  }
+  .tab-btn {
+    flex: 1;
+    max-width: 280px;
+    padding: .8rem 1.4rem;
+    border: 1px solid #2a2320;
+    border-radius: 12px;
+    background: #181513;
+    color: #6b6053;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 1.05rem;
+    cursor: pointer;
+    transition: all .3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .tab-btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(212,168,75,.08) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity .3s;
+  }
+  .tab-btn:hover { border-color: #d4a84b55; background: #1e1a14; }
+  .tab-btn:hover::after { opacity: 1; }
+  .tab-btn.active {
+    border-color: #d4a84b;
+    background: linear-gradient(135deg, #d4a84b22 0%, #d4a84b10 100%);
+    color: #d4a84b;
+    box-shadow: 0 0 20px rgba(212,168,75,.1);
+  }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* Sub-tabs (cuisine / drink type) */
+  .sub-tab-bar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: .4rem;
+    padding: 0 1.5rem 1.2rem;
+  }
+  .sub-tab-btn {
+    padding: .45rem 1rem;
+    border: 1px solid #2a2320;
+    border-radius: 20px;
+    background: #14120f;
+    color: #6b6053;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: .82rem;
+    cursor: pointer;
+    transition: all .25s;
+  }
+  .sub-tab-btn:hover { border-color: #d4a84b55; color: #b0a08a; background: #1a1714; }
+  .sub-tab-btn.active {
+    border-color: #d4a84b;
+    background: linear-gradient(135deg, #d4a84b25 0%, #d4a84b10 100%);
+    color: #d4a84b;
+    box-shadow: 0 0 12px rgba(212,168,75,.08);
+  }
+  .sub-tab-content { display: none; padding: 0 1.5rem; max-width: 1160px; margin: 0 auto; }
+  .sub-tab-content.active { display: block; }
+
+  /* Modal instructions */
+  .modal-instructions {
+    font-size: .82rem;
+    color: #9a9088;
+    margin-top: .8rem;
+    margin-bottom: 1.2rem;
+    line-height: 1.5;
+  }
+  .modal-instructions strong { color: #d4a84b; }
+
+  /* Export button */
+  .export-section {
+    text-align: center;
+    padding: 2rem 1.5rem 1rem;
+  }
+  .export-btn {
+    background: linear-gradient(135deg, #d4a84b 0%, #c49a3f 100%);
+    color: #0d0d0d;
+    border: none;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 1.05rem;
+    padding: .9rem 2.2rem;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all .3s;
+    box-shadow: 0 4px 20px rgba(212,168,75,.25);
+    letter-spacing: .5px;
+  }
+  .export-btn:hover {
+    background: linear-gradient(135deg, #e6be6a 0%, #d4a84b 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(212,168,75,.35);
+  }
+
+  /* Export modal */
+  .export-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 200;
+    backdrop-filter: blur(6px);
+    animation: fadeIn .3s ease;
+  }
+  .export-overlay.hidden { display: none; }
+  .export-box {
+    background: #1e1b17;
+    border: 1px solid #d4a84b55;
+    border-radius: 14px;
+    padding: 2rem 2.2rem;
+    max-width: 420px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,.5);
+    animation: popIn .3s ease;
+  }
+  .export-box h2 {
+    color: #d4a84b;
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+  }
+  .export-box pre {
+    background: #14120f;
+    border: 1px solid #2a2320;
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: left;
+    color: #e0d6c8;
+    font-family: 'Poppins', sans-serif;
+    font-size: .82rem;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    max-height: 300px;
+    overflow-y: auto;
+    margin-bottom: 1rem;
+    line-height: 1.6;
+  }
+  .copy-btn {
+    background: #d4a84b;
+    color: #0d0d0d;
+    border: none;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: .9rem;
+    padding: .6rem 1.8rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background .2s;
+  }
+  .copy-btn:hover { background: #e6be6a; }
+  .copy-status {
+    font-size: .8rem;
+    margin-top: .4rem;
+    color: #4caf50;
+    min-height: 1.2rem;
+  }
+  .close-export-btn {
+    background: none;
+    border: 1px solid #2a2320;
+    color: #6b6053;
+    font-family: 'Poppins', sans-serif;
+    font-size: .85rem;
+    padding: .4rem 1.2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: .6rem;
+    transition: all .2s;
+  }
+  .close-export-btn:hover { border-color: #d4a84b55; color: #b0a08a; }
+  .fav-label {
+    display: block;
+    font-size: .82rem;
+    color: #b0a08a;
+    text-align: left;
+    margin-bottom: .4rem;
+  }
+  .fav-input {
+    width: 100%;
+    padding: .6rem .8rem;
+    border: 1px solid #2a2320;
+    border-radius: 8px;
+    background: #14120f;
+    color: #f0e6d3;
+    font-family: 'Poppins', sans-serif;
+    font-size: .85rem;
+    outline: none;
+    resize: vertical;
+    margin-bottom: 1rem;
+    transition: border-color .2s;
+  }
+  .fav-input:focus { border-color: #d4a84b; }
+
+  @media (max-width: 600px) {
+    header { padding: 2.5rem 1rem 1.5rem; }
+    header h1 { font-size: 1.5rem; }
+    header .subtitle { font-size: 1rem; }
+    .category-header h2, .suggestions-header h2 { font-size: 1.2rem; }
+    .category-header { padding: 1.5rem 0 .8rem; }
+    .tab-hint { font-size: 1.1rem; padding: 1.5rem .5rem .8rem; }
+    .tab-bar { flex-direction: column; align-items: center; gap: .4rem; padding: 0 1rem 1rem; }
+    .tab-btn { max-width: 100%; width: 100%; font-size: .95rem; padding: .65rem 1rem; }
+    .sub-tab-bar { gap: .3rem; padding: 0 .8rem .8rem; }
+    .sub-tab-btn { font-size: .75rem; padding: .35rem .7rem; }
+    .sub-tab-content { padding: 0 .8rem; }
+    .venue-grid { grid-template-columns: 1fr; gap: .8rem; }
+    .venue-card { padding: 1rem; }
+    .venue-name { font-size: .95rem; }
+    .venue-location { font-size: .78rem; }
+    .venue-desc { font-size: .78rem; }
+    .vote-row { gap: .4rem; }
+    .vote-btn { padding: .35rem .6rem; font-size: .9rem; }
+    .suggestions-grid { grid-template-columns: 1fr; }
+    .export-section { padding: 1.5rem 1rem .8rem; }
+    .export-btn { font-size: .9rem; padding: .7rem 1.5rem; width: 100%; }
+    .export-box { padding: 1.5rem 1.2rem; max-width: 95%; }
+    .export-box h2 { font-size: 1.1rem; }
+    .export-box pre { font-size: .75rem; padding: .8rem; max-height: 200px; }
+    .fav-input { font-size: .8rem; }
+    .copy-btn { font-size: .85rem; padding: .55rem 1.5rem; width: 100%; }
+    .close-export-btn { width: 100%; padding: .5rem; }
+    .name-modal { padding: 1.5rem 1.2rem; max-width: 90%; }
+    .name-modal h2 { font-size: 1.1rem; }
+    .name-modal input { font-size: .9rem; }
+    .modal-instructions { font-size: .78rem; }
+    .admin-grid { grid-template-columns: 1fr; }
+    footer { font-size: .72rem; padding: 1.5rem 1rem 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Your Night Out, Sorted — QBN</h1>
+  <p class="subtitle">A plan for 3 🍜🍸</p>
+</header>
+
+<!-- Admin Panel (only visible with ?admin=true) -->
+<div id="adminPanel" style="display:none;">
+  <div class="admin-panel">
+    <h2>Admin — All Votes</h2>
+    <div class="admin-grid" id="adminGrid"></div>
+  </div>
+</div>
+
+<!-- ═══════════ TABS ═══════════ -->
+<p class="tab-hint">Press on a tab to view suggestions</p>
+<div class="tab-bar">
+  <button class="tab-btn active" data-tab="dinner">🍽 Dinner Spots</button>
+  <button class="tab-btn" data-tab="drinks">🍸 Drinks Spots</button>
+</div>
+
+<div id="tab-dinner" class="tab-content active">
+<section class="category">
+  <div class="category-header">
+    <h2>🍽 Dinner Spots</h2>
+    <p class="link-hint">Tap the <span class="dashed-example">store name</span> to visit their website</p>
+  </div>
+  <div class="sub-tab-bar">
+    <button class="sub-tab-btn active" data-subtab="dinner-hotpot">🍲 Hotpot</button>
+    <button class="sub-tab-btn" data-subtab="dinner-kbbq">🥩 Korean BBQ</button>
+    <button class="sub-tab-btn" data-subtab="dinner-chinese">🥟 Chinese</button>
+    <button class="sub-tab-btn" data-subtab="dinner-japanese">🍣 Japanese</button>
+    <button class="sub-tab-btn" data-subtab="dinner-spanish">🥘 Spanish</button>
+    <button class="sub-tab-btn" data-subtab="dinner-thai">🌶 Thai &amp; SEA</button>
+    <button class="sub-tab-btn" data-subtab="dinner-italian">🍝 Italian</button>
+  </div>
+
+  <div class="sub-tab-content active" id="dinner-hotpot">
+    <div class="venue-grid">
+      <div class="venue-card">
+        <div class="venue-name"><a href="https://haidilaoau.org/" target="_blank">Haidilao Hot Pot</a></div>
+        <div class="venue-location">📍 Swanston St · 5 min walk</div>
+        <div class="venue-desc">Famous chain with split pots, noodle-pulling shows &amp; top-tier service</div>
+      </div>
+      <div class="venue-card">
+        <div class="venue-name"><a href="https://www.dragonhotpot.com.au/" target="_blank">Dragon Hot Pot</a></div>
+        <div class="venue-location">📍 Russell St · 3 min walk</div>
+        <div class="venue-desc">Late-night malatang with 100+ ingredients to customise — open till 2 am</div>
+      </div>
+      <div class="venue-card">
+        <div class="venue-name"><a href="https://happylamb.com.au/" target="_blank">Happy Lamb Hot Pot</a></div>
+        <div class="venue-location">📍 Exhibition St · 5 min walk</div>
+        <div class="venue-desc">Mongolian-style all-you-can-eat hotpot — quality lamb, wagyu &amp; halal certified</div>
+      </div>
+      <div class="venue-card">
+        <div class="venue-name"><a href="https://www.wongslatenighthotpot.com.au/" target="_blank">Wong's Late Night Hot Pot</a></div>
+        <div class="venue-location">📍 Little Bourke St · 4 min walk</div>
+        <div class="venue-desc">Chongqing-style hotpot open till 2 am — rich, spicy broths in Chinatown</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub-tab-content" id="dinner-kbbq">
+    <div class="venue-grid">
+      <div class="venue-card">
+        <div class="venue-name"><a href="https://www.hwaro.com.au/" target="_blank">Hwaro Korean BBQ</a></div>
+        <div class="venue-location">📍 Little Bourke St · 5 min walk</div>
+        <div class="venue-desc">One of Melbourne's most popular — tabletop grills &amp; quality marinated meats</div>
+      </div>
+      <div class="venue-card">
+        <div class="venue-name"><a href="https://bornga.com.au/" target="_blank">Bornga Korean BBQ</a></div>
+        <div class="venue-location">📍 Little Bourke St · 4 min walk</div>
+        <div class="venue-desc">Celebrity chef chain — famous for woo samgyeop beef brisket &amp; banquet sets</div>
+      </div>
+      <div class="venue-card">
+        <div class="venue-name"><a href="https://www.gogimatcha.com/" target="_blank">GogiMatcha</a></div>
+        <div class="venue-location">📍 Little Lonsdale St · 10 min walk</div>
+        <div class="venue-desc">Warehouse-style KBBQ with Wagyu, Black Angus &amp; grill-at-your-table fun</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub-tab-content" id="dinner-chinese">
+    <div class="venue-grid">
+      <div class="venue-card">
+        <div class="venue-name"><a href="https://www.hutong.com.au" target="_blank">HuTong Dumpling Bar</a></div>
+        <div class="venue-location">📍 Chinatown · 2 min walk</div>
+        <div class="venue-desc">Famous xiao long bao &amp; Sichuan classics in a buzzy, no-frills room</div>
+      </div>
+      <div class="venue-card">
+        <div class="venue-name"><a href="https://www.shandongmama.com.au" target="_blank">ShanDong MaMa</a></div>
+        <div class="venue-location">📍 Chinatown · 2 min walk</div>
+        <div class="venue-desc">Hand-pulled noodles &amp; northern Chinese comfort food — authentic and affordable</div>
+      </div>
+      <div class="venue-card">
+        <div class="venue-name"><a href="https://www.supernormal.net.au" target="_blank">Supernormal</a></div>
+        <div class="venue-location">📍 Flinders Lane · 5 min walk</div>
+        <div class="venue-desc">Pan-Asian sharing plates — lobster roll, dumplings, bao</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub-tab-content" id="dinner-japanese">
+    <div class="venue-grid">
+      <div class="venue-card">
+        <div class="venue-name"><a href="https://gensuke.com.au/" target="_blank">Hakata Gensuke</a></div>
+        <div class="venue-location">📍 Russell St · 2 min walk</div>
+        <div class="venue-desc">Rich, creamy tonkotsu ramen — one of Melbourne's best ramen spots</div>
+      </div>
+      <div class="venue-card">
+        <div class="venue-name"><a href="https://shujinko.com.au/" target="_blank">Shujinko Ramen</a></div>
+        <div class="venue-location">📍 Russell St · 2 min walk</div>
+        <div class="venue-desc">24-hour ramen joint with customisable bowls &amp; gyoza — perfect any time</div>
+      </div>
+      <div class="venue-card">
+        <div class="venue-name"><a href="http://www.izakayaden.com.au/" target="_blank">Izakaya Den</a></div>
+        <div class="venue-location">📍 Russell St · 3 min walk</div>
+        <div class="venue-desc">Lively Japanese pub-style — yakitori, karaage &amp; sake in a fun atmosphere</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub-tab-content" id="dinner-spanish">
+    <div class="venue-grid">
+      <div class="venue-card">
+        <div class="venue-name"><a href="https://www.movida.com.au" target="_blank">MoVida</a></div>
+        <div class="venue-location">📍 Hosier Lane · 7 min walk</div>
+        <div class="venue-desc">Spanish tapas &amp; raciones in Melbourne's most famous laneway</div>
+      </div>
+      <div class="venue-card">
+        <div class="venue-name"><a href="https://www.bombabar.com.au/" target="_blank">Bomba</a></div>
+        <div class="venue-location">📍 Lonsdale St · 5 min walk</div>
+        <div class="venue-desc">Spanish tapas bar &amp; rooftop — pintxos, paella &amp; sangria</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub-tab-content" id="dinner-thai">
+    <div class="venue-grid">
+      <div class="venue-card">
+        <div class="venue-name"><a href="https://chinchinrestaurant.com.au" target="_blank">Chin Chin</a></div>
+        <div class="venue-location">📍 Flinders Lane · 5 min walk</div>
+        <div class="venue-desc">Vibrant South-East Asian flavours, long queues worth the wait</div>
+      </div>
+      <div class="venue-card">
+        <div class="venue-name"><a href="https://www.longrainmelbourne.com" target="_blank">Longrain</a></div>
+        <div class="venue-location">📍 Little Bourke St · 5 min walk</div>
+        <div class="venue-desc">Thai-inspired sharing plates in a moody, long communal-table space</div>
+      </div>
+      <div class="venue-card">
+        <div class="venue-name"><a href="https://www.daughterinlaw.com.au" target="_blank">Daughter in Law</a></div>
+        <div class="venue-location">📍 Lonsdale St · 5 min walk</div>
+        <div class="venue-desc">Bold, punchy Indian street food with a fun, irreverent vibe</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub-tab-content" id="dinner-italian">
+    <div class="venue-grid">
+      <div class="venue-card">
+        <div class="venue-name"><a href="https://tipo00.com.au" target="_blank">Tipo 00</a></div>
+        <div class="venue-location">📍 Little Bourke St · 3 min walk</div>
+        <div class="venue-desc">Handmade pasta perfection in a sleek, intimate laneway setting</div>
+      </div>
+      <div class="venue-card">
+        <div class="venue-name"><a href="https://lellopastabar.com.au/" target="_blank">Lello Pasta Bar</a></div>
+        <div class="venue-location">📍 Flinders Lane · 5 min walk</div>
+        <div class="venue-desc">Affordable fresh pasta &amp; Italian classics — cosy and casual</div>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<div id="tab-drinks" class="tab-content">
+<section class="category">
+  <div class="category-header">
+    <h2>🍸 Drinks Spots</h2>
+    <p class="link-hint">Tap the <span class="dashed-example">store name</span> to visit their website</p>
+  </div>
+
+  <div class="sub-tab-bar">
+    <button class="sub-tab-btn active" data-subtab="drinks-rooftop">Rooftop Views</button>
+    <button class="sub-tab-btn" data-subtab="drinks-speakeasy">Hidden Gems</button>
+    <button class="sub-tab-btn" data-subtab="drinks-latenight">Late-Night &amp; Wine</button>
+  </div>
+
+  <div class="sub-tab-content active" id="drinks-rooftop">
+    <div class="venue-grid">
+      <div class="venue-card">
+        <div class="venue-name"><a href="https://www.qthotels.com/melbourne/eat-drink/rooftop-at-qt/" target="_blank">Rooftop at QT (Level 11)</a></div>
+        <div class="venue-location">📍 Russell St, Melbourne CBD</div>
+        <div class="venue-desc">Cocktails with sweeping Melbourne skyline views</div>
+      </div>
+      <div class="venue-card">
+        <div class="venue-name"><a href="https://www.siglobar.com.au" target="_blank">Siglo</a></div>
+        <div class="venue-location">📍 Spring St · 5 min walk</div>
+        <div class="venue-desc">Rooftop wine terrace overlooking Parliament House — very Melbourne</div>
+      </div>
+      <div class="venue-card">
+        <div class="venue-name"><a href="https://www.goldilocksbar.com.au" target="_blank">Goldilocks</a></div>
+        <div class="venue-location">📍 Bourke St · 5 min walk</div>
+        <div class="venue-desc">Lush rooftop with retractable roof, fairy lights &amp; creative cocktails</div>
+      </div>
+      <div class="venue-card">
+        <div class="venue-name"><a href="https://rooftopbar.co" target="_blank">Rooftop Bar (Curtin House)</a></div>
+        <div class="venue-location">📍 Swanston St · 5 min walk</div>
+        <div class="venue-desc">Iconic open-air rooftop with city views, cinema nights &amp; relaxed vibes</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub-tab-content" id="drinks-speakeasy">
+    <div class="venue-grid">
+      <div class="venue-card">
+        <div class="venue-name"><a href="https://www.eaudevie.com.au" target="_blank">Eau de Vie</a></div>
+        <div class="venue-location">📍 Malthouse Lane · 7 min walk</div>
+        <div class="venue-desc">Hidden speakeasy — inventive cocktails behind an unmarked door</div>
+      </div>
+      <div class="venue-card">
+        <div class="venue-name"><a href="https://www.baramericano.com.au" target="_blank">Bar Americano</a></div>
+        <div class="venue-location">📍 Presgrave Place · 7 min walk</div>
+        <div class="venue-desc">Tiny standing-room-only bar serving perfect Negronis &amp; Americanos</div>
+      </div>
+      <div class="venue-card">
+        <div class="venue-name"><a href="https://www.rumdiary.com.au" target="_blank">Rum Diary Bar</a></div>
+        <div class="venue-location">📍 Corrs Lane · 7 min walk</div>
+        <div class="venue-desc">Tropical rum-focused laneway bar with a Caribbean soul</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub-tab-content" id="drinks-latenight">
+    <div class="venue-grid">
+      <div class="venue-card">
+        <div class="venue-name"><a href="https://www.melbournesupperclub.com.au" target="_blank">Melbourne Supper Club</a></div>
+        <div class="venue-location">📍 Spring St · 5 min walk</div>
+        <div class="venue-desc">Timeless late-night wine bar with deep leather chairs &amp; an epic wine list</div>
+      </div>
+      <div class="venue-card">
+        <div class="venue-name"><a href="https://www.fancyfreebar.com.au" target="_blank">Fancy Free</a></div>
+        <div class="venue-location">📍 Corrs Lane · 7 min walk</div>
+        <div class="venue-desc">Natural wines &amp; small plates in a cosy, dimly-lit laneway spot</div>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+
+<!-- Export Button -->
+<section class="export-section">
+  <button id="exportBtn" class="export-btn">📋 Export My Choices</button>
+</section>
+
+<!-- Export Modal -->
+<div class="export-overlay hidden" id="exportModal">
+  <div class="export-box">
+    <h2>Your Choices</h2>
+    <label class="fav-label">Any other places you'd love to go? (optional)</label>
+    <textarea id="favInput" class="fav-input" rows="3" placeholder="e.g. That ramen place on Lygon St, or a good rooftop bar..."></textarea>
+    <pre id="exportText"></pre>
+    <button id="copyBtn" class="copy-btn">📋 Copy to Clipboard</button>
+    <p id="copyStatus" class="copy-status"></p>
+    <button id="closeExport" class="close-export-btn">Close</button>
+  </div>
+</div>
+
+<!-- Name Prompt Modal -->
+<div class="name-modal-overlay" id="nameModal">
+  <div class="name-modal">
+    <div style="font-size:3rem;margin-bottom:.5rem;">🤭</div>
+    <h2>Welcome to the 36 Club!</h2>
+    <p>What's your name?</p>
+    <input type="text" id="nameInput" placeholder="e.g. John" autocomplete="off">
+    <br>
+    <p class="modal-instructions">Browse the tabs, press 👍 🤔 👎 on the venues you like, then hit <strong>Export My Choices</strong> when you're done. Copy and send to Quoc B Nguyen!</p>
+    <button id="nameSubmit">Let's go!</button>
+  </div>
+</div>
+
+<footer>
+  All spots are within walking distance in Melbourne CBD 🌃
+</footer>
+
+<script>
+(function() {
+  // ═══════════ GOOGLE SHEETS APPS SCRIPT URL — PASTE YOUR URL HERE ═══════════
+  var APPS_SCRIPT_URL = 'YOUR_APPS_SCRIPT_WEB_APP_URL';
+  // ═══════════════════════════════════════════════════════════════════════════════
+
+  // Local cache of all votes: { venueId: { userName: voteType } }
+  var allVotes = {};
+
+  // ── Venue ID mapping ──
+  function venueSlug(name) {
+    return name.replace(/[^a-zA-Z0-9]+/g, '_').replace(/^_|_$/g, '').toLowerCase();
+  }
+
+  // Collect all venue cards and their IDs
+  var cards = [];
+  document.querySelectorAll('.venue-card').forEach(function(card) {
+    var nameEl = card.querySelector('.venue-name a') || card.querySelector('.venue-name');
+    var text = nameEl ? nameEl.textContent.trim() : '';
+    var id = venueSlug(text);
+    cards.push({ el: card, id: id, name: text });
+  });
+
+  // ── Name prompt ──
+  var userName = null;
+  var nameModal = document.getElementById('nameModal');
+  var nameInput = document.getElementById('nameInput');
+  var nameSubmit = document.getElementById('nameSubmit');
+
+  function setName(name) {
+    userName = name;
+    nameModal.classList.add('hidden');
+    initVoting();
+    fetchVotes();
+  }
+
+  nameInput.focus();
+
+  nameSubmit.addEventListener('click', function() {
+    var val = nameInput.value.trim();
+    if (val) setName(val);
+  });
+  nameInput.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+      var val = nameInput.value.trim();
+      if (val) setName(val);
+    }
+  });
+
+  // ── Fetch votes from Google Sheets ──
+  function fetchVotes() {
+    fetch(APPS_SCRIPT_URL)
+      .then(function(r) { return r.json(); })
+      .then(function(votes) {
+        allVotes = votes;
+        updateAllUI();
+      })
+      .catch(function(err) { console.error('Failed to fetch votes:', err); });
+  }
+
+  // ── Send a vote to Google Sheets ──
+  function sendVote(venue, vote) {
+    return fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      body: JSON.stringify({ user: userName, venue: venue, vote: vote }),
+      headers: { 'Content-Type': 'text/plain' }
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(votes) {
+      allVotes = votes;
+      updateAllUI();
+    })
+    .catch(function(err) { console.error('Failed to send vote:', err); });
+  }
+
+  // ── Update all UI from cached votes ──
+  function updateAllUI() {
+    cards.forEach(function(c) {
+      var venueVotes = allVotes[c.id] || {};
+      var counts = { like: 0, maybe: 0, dislike: 0 };
+      Object.keys(venueVotes).forEach(function(voter) {
+        var v = venueVotes[voter];
+        if (counts.hasOwnProperty(v)) counts[v]++;
+      });
+
+      var row = c.el.querySelector('.vote-row');
+      if (!row) return;
+      var btns = row.querySelectorAll('.vote-btn');
+      btns[0].querySelector('.vote-count').textContent = counts.like || '';
+      btns[1].querySelector('.vote-count').textContent = counts.maybe || '';
+      btns[2].querySelector('.vote-count').textContent = counts.dislike || '';
+
+      var myVote = venueVotes[userName] || null;
+      btns[0].classList.toggle('active-like', myVote === 'like');
+      btns[1].classList.toggle('active-maybe', myVote === 'maybe');
+      btns[2].classList.toggle('active-dislike', myVote === 'dislike');
+    });
+
+    if (isAdmin) updateAdmin();
+  }
+
+  // ── Admin mode ──
+  var isAdmin = new URLSearchParams(window.location.search).get('admin') === 'true';
+
+  if (isAdmin) {
+    document.getElementById('adminPanel').style.display = 'block';
+  }
+
+  function updateAdmin() {
+    var grid = document.getElementById('adminGrid');
+    grid.innerHTML = '';
+
+    cards.forEach(function(c) {
+      var venueVotes = allVotes[c.id] || {};
+      var likes = [], maybes = [], dislikes = [];
+      Object.keys(venueVotes).forEach(function(voter) {
+        if (venueVotes[voter] === 'like') likes.push(voter);
+        else if (venueVotes[voter] === 'maybe') maybes.push(voter);
+        else if (venueVotes[voter] === 'dislike') dislikes.push(voter);
+      });
+
+      if (likes.length === 0 && maybes.length === 0 && dislikes.length === 0) return;
+
+      var card = document.createElement('div');
+      card.className = 'admin-card';
+      card.innerHTML =
+        '<div class="admin-venue-name">' + c.name + '</div>' +
+        '<div class="admin-votes">' +
+          '👍 <span class="like-names">' + (likes.length ? likes.join(', ') : 'none') + '</span> (' + likes.length + ')' +
+          '<br>' +
+          '🤔 <span class="maybe-names">' + (maybes.length ? maybes.join(', ') : 'none') + '</span> (' + maybes.length + ')' +
+          '<br>' +
+          '👎 <span class="dislike-names">' + (dislikes.length ? dislikes.join(', ') : 'none') + '</span> (' + dislikes.length + ')' +
+        '</div>';
+      grid.appendChild(card);
+    });
+
+    if (!grid.children.length) {
+      grid.innerHTML = '<p style="color:#6b6053;text-align:center;grid-column:1/-1;">No votes yet.</p>';
+    }
+  }
+
+  // ── Voting (normal view) ──
+  function showPlusOne(btn, color) {
+    var span = document.createElement('span');
+    span.className = 'plus-one';
+    span.textContent = '+1';
+    span.style.color = color;
+    btn.appendChild(span);
+    setTimeout(function() { span.remove(); }, 700);
+  }
+
+  function initVoting() {
+    cards.forEach(function(c) {
+      if (c.el.querySelector('.vote-row')) return;
+
+      var row = document.createElement('div');
+      row.className = 'vote-row';
+
+      var likeBtn = document.createElement('button');
+      likeBtn.className = 'vote-btn';
+      likeBtn.innerHTML = '<span>👍</span><span class="vote-count"></span>';
+
+      var maybeBtn = document.createElement('button');
+      maybeBtn.className = 'vote-btn';
+      maybeBtn.innerHTML = '<span>🤔</span><span class="vote-count"></span>';
+
+      var dislikeBtn = document.createElement('button');
+      dislikeBtn.className = 'vote-btn';
+      dislikeBtn.innerHTML = '<span>👎</span><span class="vote-count"></span>';
+
+      likeBtn.addEventListener('click', function() {
+        var current = (allVotes[c.id] && allVotes[c.id][userName]) || null;
+        if (current === 'like') {
+          sendVote(c.id, 'none');
+        } else {
+          // Optimistic UI update
+          if (!allVotes[c.id]) allVotes[c.id] = {};
+          allVotes[c.id][userName] = 'like';
+          updateAllUI();
+          showPlusOne(likeBtn, '#4caf50');
+          sendVote(c.id, 'like');
+        }
+      });
+
+      maybeBtn.addEventListener('click', function() {
+        var current = (allVotes[c.id] && allVotes[c.id][userName]) || null;
+        if (current === 'maybe') {
+          sendVote(c.id, 'none');
+        } else {
+          if (!allVotes[c.id]) allVotes[c.id] = {};
+          allVotes[c.id][userName] = 'maybe';
+          updateAllUI();
+          showPlusOne(maybeBtn, '#d4a84b');
+          sendVote(c.id, 'maybe');
+        }
+      });
+
+      dislikeBtn.addEventListener('click', function() {
+        var current = (allVotes[c.id] && allVotes[c.id][userName]) || null;
+        if (current === 'dislike') {
+          sendVote(c.id, 'none');
+        } else {
+          if (!allVotes[c.id]) allVotes[c.id] = {};
+          allVotes[c.id][userName] = 'dislike';
+          updateAllUI();
+          showPlusOne(dislikeBtn, '#ef5350');
+          sendVote(c.id, 'dislike');
+        }
+      });
+
+      row.appendChild(likeBtn);
+      row.appendChild(maybeBtn);
+      row.appendChild(dislikeBtn);
+      c.el.appendChild(row);
+    });
+  }
+
+  // ── Tab switching ──
+  document.querySelectorAll('.tab-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+      document.querySelectorAll('.tab-content').forEach(function(t) { t.classList.remove('active'); });
+      btn.classList.add('active');
+      document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+    });
+  });
+
+  // ── Sub-tab switching ──
+  document.querySelectorAll('.sub-tab-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var parent = btn.closest('.category') || btn.closest('.tab-content');
+      parent.querySelectorAll('.sub-tab-btn').forEach(function(b) { b.classList.remove('active'); });
+      parent.querySelectorAll('.sub-tab-content').forEach(function(t) { t.classList.remove('active'); });
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.subtab).classList.add('active');
+    });
+  });
+
+  // ── Export choices ──
+  function buildExportText() {
+    var likes = [], maybes = [], dislikes = [];
+    cards.forEach(function(c) {
+      var myVote = (allVotes[c.id] && allVotes[c.id][userName]) || null;
+      if (myVote === 'like') likes.push(c.name);
+      else if (myVote === 'maybe') maybes.push(c.name);
+      else if (myVote === 'dislike') dislikes.push(c.name);
+    });
+
+    var text = '🍽 ' + (userName || 'Guest') + '\'s Choices\n';
+    text += '━━━━━━━━━━━━━━━━━━━━\n\n';
+    if (likes.length) {
+      text += '👍 Yes please!\n';
+      likes.forEach(function(n) { text += '  • ' + n + '\n'; });
+      text += '\n';
+    }
+    if (maybes.length) {
+      text += '🤔 Maybe\n';
+      maybes.forEach(function(n) { text += '  • ' + n + '\n'; });
+      text += '\n';
+    }
+    if (dislikes.length) {
+      text += '👎 Not for me\n';
+      dislikes.forEach(function(n) { text += '  • ' + n + '\n'; });
+      text += '\n';
+    }
+    if (!likes.length && !maybes.length && !dislikes.length) {
+      text += 'No votes yet — go pick some spots!\n\n';
+    }
+
+    var favs = document.getElementById('favInput').value.trim();
+    if (favs) {
+      text += '💬 My own suggestions:\n';
+      text += '  ' + favs + '\n';
+    }
+
+    return text;
+  }
+
+  document.getElementById('exportBtn').addEventListener('click', function() {
+    document.getElementById('exportText').textContent = buildExportText();
+    document.getElementById('copyStatus').textContent = '';
+    document.getElementById('exportModal').classList.remove('hidden');
+  });
+
+  document.getElementById('favInput').addEventListener('input', function() {
+    document.getElementById('exportText').textContent = buildExportText();
+  });
+
+  document.getElementById('copyBtn').addEventListener('click', function() {
+    var text = buildExportText();
+    navigator.clipboard.writeText(text).then(function() {
+      document.getElementById('copyStatus').textContent = 'Copied!';
+    });
+  });
+
+  document.getElementById('closeExport').addEventListener('click', function() {
+    document.getElementById('exportModal').classList.add('hidden');
+  });
+
+})();
+</script>
+
+</body>
+</html>
